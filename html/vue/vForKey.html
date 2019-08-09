@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表循环</title>
+  <script src="../../js/vue.js"></script>
+  <script>
+    window.onload = function () {
+      let app = new Vue({
+        el:"#app",
+        data:{
+          id:8,
+          arr:[{id:1,name:"luda"},
+            {id:2,name:"xiuyuchuan"},
+            {id:3,name:"youyuxi"},
+            {id:4,name:"mayun"},
+            {id:5,name:"mahuateng"}
+            ]
+        },
+        methods:{
+          del(index){
+            this.arr.splice(index,1);
+          },
+          update(index){
+            //this.arr[index] = {id:8,name:666};
+            this.id++;
+            //this.arr[index] = {id:100,name:"jkndsfn"};
+            //this.$nextTick( ()=>this.arr[index] = {id:100,name:"jkndsfn"} )
+            this.arr.splice(index,1,{id:this.id,name:666})
+            console.log(this.arr);
+          }
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="(item,index) in arr" :key="item.id">
+        <input type="checkbox">
+        {{item.name}}-------{{item.id}}
+        <button @click="del(index)">删除</button>
+        <button @click="update(index)">更新</button>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

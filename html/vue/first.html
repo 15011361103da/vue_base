@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <title></title>
   <script src="../../js/vue.js"></script>
+  <style>
+    .demo{
+       background-color: red;
+       width: 20px;
+       height: 20px;
+     }
+    .demo1{
+      background-color: blue;
+      width: 20px;
+      height: 20px;
+    }
+  </style>
   <script>
     //创建vue实例
     window.onload = function(){
@@ -14,17 +26,45 @@
           xiuyuchuan:"修宇川",
           a:0,
           b:0,
-          c:0
+          c:0,
+          sty:"demo"
         },
         computed:{
           jisuan:function () {
             console.log("computed计算属性执行了");
             return this.c;
           },
+          fullName:{
+            set(value){
+              console.log("set zhi xing");
+              let arr = value.split(" ");
+              this.a = arr[0];
+              this.b = arr[1];
+            },
+            get(){
+              console.log("get zhi xing")
+              return this.a+" "+this.b;
+            }
+          }
         },
         methods:{
           add(){
+            let arr = [12,15,12,16,31,12,144,85];
+            let arr1 = arr.splice(2,3,15,65,56);
+            console.log(arr,arr1);
+            arr.forEach(function (h,i) {
+              console.log(h,i)
+            })
             this.c = parseFloat(this.a) +parseFloat(this.b);
+
+          },
+          changesty(){
+            this.sty = "demo1";
+          }
+        },
+        watch:{
+          xiuyuchuan(){
+            console.log("watch 执行")
           }
         }
       });
@@ -35,8 +75,11 @@
   <div id="app">
     <input type="text" v-model="luda">
     <p>{{luda}}</p>
+    <input type="text" v-model="xiuyuchuan">
     <input type="text" v-model="a">+<input type="text" v-model="b">=<span>{{jisuan}}</span>
     <button @click="add">计算</button>
+    <input type="text" v-model="fullName">
+    <div :class="sty"></div> <button @click="changesty"></button>
   </div>
 </body>
 </html>

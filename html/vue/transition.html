@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+  <script src="../../js/vue.js"></script>
+  <style>
+    .xxx-leave-active,.xxx-enter-active{
+      transform: rotate(7deg);
+      transition: 2s;
+    }
+    .xxx-leave-to,.xxx-enter{
+      opacity: 0;
+    }
+  </style>
+  <script>
+    window.onload = function () {
+      let app = new Vue({
+        el:"#app",
+        data:{
+          isShow:true
+        },
+        //
+        methods:{
+
+        },
+        //
+        watch:{
+
+        },
+
+      })
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <transition name="xxx">
+      <div v-show="isShow" class="xxx-enter-to">66</div>
+    </transition>
+    <button @click="isShow = !isShow">tagger</button>
+  </div>
+</body>
+</html>

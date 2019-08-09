@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索过滤</title>
+  <script src="../../js/vue.js"></script>
+  <style>
+    .out{
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+    }
+    .inner{
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="searchName">
+    <ul ref="u1" id="u1" @click="weipai($event)">
+      <li v-for="item in search" :key="item.id">
+        {{item.name}}------{{item.id}}
+      </li>
+    </ul>
+    <input type="text" @keyup.enter="test">
+    <button @click="sortt">排序</button>
+
+    <!--//事件修饰符-->
+    <div class="out" @click="out">
+      <div class="inner"  @click.stop="inner"></div>
+    </div>
+
+    <select name="" id="" v-model="opid" >
+      <option value="">请选择</option>
+      <option ref="o1" value="asd">asd</option>
+      <option value="awd">165551</option>
+      <option value="xfv">150xdv</option>
+
+    </select>
+    <div ref="div1">{{mes}}</div>
+    <div>{{mes1}}</div>
+    <button @click="change">change</button>
+  </div>
+</body>
+</html>
+<script>
+  window.onload = function () {
+    let app = new Vue({
+      el:"#app",
+      data:{
+        mes:"666",
+        mes1:"999",
+        //
+        searchName:"",
+        arr:[{id:1,name:"luda"},
+          {id:8,name:"xiuyuchuan"},
+          {id:2,name:"youyuxi"},
+          {id:4,name:"mayun"},
+          {id:5,name:"mahuateng"}
+        ],
+        opid:'asd'
+      },
+      computed:{
+        search(){
+          const {searchName,arr} = this;
+          //console.log(arr)
+          //let filArr = arr.filter(item => item.name.indexOf(searchName)!== -1)
+            //console.log(item.name,item.name.indexOf(searchName),item.name.indexOf(searchName)!== -1)
+          let filArr = arr.filter(function (item) {
+            return item.name.indexOf(searchName)!== -1
+          })
+
+
+          //console.log(filArr)
+          return filArr;
+        },
+
+      },
+      methods:{
+        test(){
+          alert(66666)
+        },
+        //根据id升序
+        sortt(){
+          this.arr.sort(function (a,b) {
+            console.log(a.name,b.name);
+            return a.id - b.id
+          })
+          console.log(this.arr);
+        },
+        out(){
+          alert("out");
+        },
+        inner(){
+          alert("inner");
+        },
+        //事件委派
+        weipai(event){
+
+          alert(event.target.innerHTML);
+        },
+        mounted(){
+          console.log(this.opid)
+        },
+        change(){
+          this.mes = "gaibian";
+          //this.$nextTick(()=>this.mes1 = this.$refs.div1.innerHTML)
+          this.mes1 = this.mes;
+
+        }
+      },
+
+      watch:{
+        opid(){
+          alert(this.opid)
+          console.log(this.opid);
+        }
+      },
+      created(){
+
+        /*this.$nextTick(function () {
+
+        })*/
+        //this.$refs.o1.innerHTML = 987;
+        this.arr.splice(2,1,{id:18,name:'dcz'});
+        console.log(this.arr)
+      },
+      mounted(){
+        //this.$refs.o1.innerHTML = 987;
+      }
+    })
+  }
+</script>
